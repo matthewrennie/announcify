@@ -1,9 +1,12 @@
-# Initial Gemfile from http://ruby.railstutorial.org/chapters/static-pages#code-gemfile_rspec
+# Code adapted from:
+# Hartl, M (2013) Ruby On Rails Tutorial - Source code listings (Version unknown) [Source code].
+# http://ruby.railstutorial.org
 
 source 'https://rubygems.org'
 ruby '2.0.0'
 
 gem 'rails', '4.0.0'
+gem 'bootstrap-sass-rails'
 
 group :development, :test do
   gem 'sqlite3', '1.3.7'

@@ -1,0 +1,17 @@
+@import "twitter/bootstrap";
+
+/* forms */
+#form-signin {
+
+	padding-top:100px;
+	max-width:400px;
+	margin: 0 auto;
+
+	.form-control {
+		font-size: 16px;
+		height:auto;
+    	padding: 10px;
+    	position: relative;
+    	margin-bottom: 5px;
+	}
+}

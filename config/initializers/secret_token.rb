@@ -1,4 +1,5 @@
-# secret token code from http://ruby.railstutorial.org/chapters/static-pages#code-secret_token
+# Hartl, M (2013) Ruby On Rails Tutorial - Source code listings (Version unknown) [Source code].
+# http://ruby.railstutorial.org
 
 # Be sure to restart your server when you modify this file.
 

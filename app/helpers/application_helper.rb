@@ -1,3 +1,7 @@
+# Code adapted from:
+# Hartl, M (2013) Ruby On Rails Tutorial - Source code listings (Version unknown) [Source code].
+# http://ruby.railstutorial.org
+
 module ApplicationHelper
 	
 	# Returns the full title on a per-page basis.

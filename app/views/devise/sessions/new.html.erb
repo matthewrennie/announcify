@@ -1,17 +1,35 @@
-<h2>Sign in</h2>
+<% content_for :second_level_layout do %> 
 
-<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, :autofocus => true %></div>
+	<%= form_for(resource, :as => resource_name, html: { id: "form-signin" }, :url => session_path(resource_name)) do |f| %>
 
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
+		<!-- Devise Flash Messages -->
+		<% unless alert.nil? %>
+			<div class="alert alert-danger">
+				<span class="glyphicon glyphicon-ban-circle"></span>
+				<%= alert %>
+			</div>
+		<% end %>
+		<% unless notice.nil? %>
+			<div class="alert alert-warning"><%= notice %></div>
+		<% end %>
 
-  <% if devise_mapping.rememberable? -%>
-    <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
-  <% end -%>
+		<h2>Sign in</h2>
 
-  <div><%= f.submit "Sign in" %></div>
-<% end %>
+  	<div>
+  		<%= f.email_field :email, class: "form-control", placeholder: "Email Address", :autofocus => true %>
+  	</div>
 
-<%= render "devise/shared/links" %>
+  	<div>
+  		<%= f.password_field :password, class: "form-control", placeholder: "Password" %>
+  	</div>
+
+	  <% if devise_mapping.rememberable? -%>
+	    <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+	  <% end -%>
+
+  	<div><%= f.submit "Sign in", class: "btn btn-lg btn-primary btn-block" %></div>
+  	<p>Don't have an account? <%= render "devise/shared/links" %></p>
+	<% end %>
+
+<% end %> 
+<%= render :template => 'layouts/marketing' %>
