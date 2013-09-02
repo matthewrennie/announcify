@@ -11,7 +11,7 @@ describe "StaticPages" do
 
     it "should have the right title" do
   		visit '/static_pages/home'
-  		expect(page).to have_title("Announcify | Home")
+  		expect(page).to have_title("Announcify")
 		end
 
   end
