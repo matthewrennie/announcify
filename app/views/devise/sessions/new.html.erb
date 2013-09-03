@@ -1,19 +1,12 @@
-<% content_for :second_level_layout do %> 
+<!-- Code adapted from: # Plataformatec (2013) Devise [Source code]. https://github.com/plataformatec/devise -->
+<% content_for :third_level_layout do %> 
 
 	<%= form_for(resource, :as => resource_name, html: { id: "form-signin" }, :url => session_path(resource_name)) do |f| %>
 
-		<!-- Devise Flash Messages -->
-		<% unless alert.nil? %>
-			<div class="alert alert-danger">
-				<span class="glyphicon glyphicon-ban-circle"></span>
-				<%= alert %>
-			</div>
-		<% end %>
-		<% unless notice.nil? %>
-			<div class="alert alert-warning"><%= notice %></div>
-		<% end %>
+	<h2>Sign in</h2>
 
-		<h2>Sign in</h2>
+	  <%= devise_error_messages! %>
+    <%= devise_flash_messages! %>	
 
   	<div>
   		<%= f.email_field :email, class: "form-control", placeholder: "Email Address", :autofocus => true %>

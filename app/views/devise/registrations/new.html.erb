@@ -1,18 +1,26 @@
-<h2>Sign up</h2>
+<!-- Code adapted from: # Plataformatec (2013) Devise [Source code]. https://github.com/plataformatec/devise -->
+<% content_for :third_level_layout do %> 
+	<%= form_for(resource, :as => resource_name, html: { id: "form-signup" },:url => registration_path(resource_name)) do |f| %>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+	  <h2>Create an account</h2>
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, :autofocus => true %></div>
+	  <%= devise_error_messages! %>
+	  <%= devise_flash_messages! %>
 
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
+		<div>
+	  	<%= f.email_field :email, class: "form-control", placeholder: "Email Address", :autofocus => true %>
+		</div>
 
-  <div><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></div>
+		<div>
+	  	<%= f.password_field :password, class: "form-control", placeholder: "Password" %>
+		</div>
 
-  <div><%= f.submit "Sign up" %></div>
-<% end %>
+	  <div>
+	  	<%= f.password_field :password_confirmation, class: "form-control", placeholder: "Confirm Password" %>
+	  </div>
 
+	  <div><%= f.submit "Sign up", class: "btn btn-lg btn-primary btn-block" %></div>
+	<% end %>
+<% end %> 
 <%= render "devise/shared/links" %>
+<%= render :template => 'layouts/marketing' %>
