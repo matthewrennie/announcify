@@ -17,6 +17,7 @@ group :test do
   gem 'zip'
   gem 'selenium-webdriver', '2.0.0'
   gem 'capybara', '2.1.0'
+  gem 'factory_girl_rails', '4.2.1'
 end
 
 gem 'sass-rails', '4.0.0'
@@ -26,6 +27,9 @@ gem 'jquery-rails', '2.2.1'
 gem 'turbolinks', '1.1.1'
 gem 'jbuilder', '1.0.2'
 gem 'devise'
+gem 'validates_email_format_of'
+gem 'faker'
+gem 'populator'
 
 group :doc do
   gem 'sdoc', '0.3.20', require: false

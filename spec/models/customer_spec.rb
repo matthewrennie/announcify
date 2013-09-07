@@ -1,0 +1,82 @@
+require 'spec_helper'
+
+describe Customer do
+
+	let(:user) { FactoryGirl.create(:user) }
+	before do
+		@customer = user.customers.build(customer_id: "123213123", email: Faker::Internet::email, first_seen: DateTime.now, last_seen: DateTime.now)
+	end
+
+	subject {@customer}
+	it { should respond_to(:customer_id) }
+	it { should respond_to(:email) }
+	it { should respond_to(:first_seen) }
+	it { should respond_to(:last_seen) }
+	it { should respond_to(:user_id) }
+	it { should respond_to(:user) }
+	its(:user) { should eq user }
+
+	it { should be_valid }
+
+	describe "when customer_id is not present" do
+		before { @customer.customer_id = nil }
+		it { should_not be_valid }
+	end
+
+	describe "when user_id is not present" do
+		before { @customer.user_id = nil }
+		it { should_not be_valid }
+	end
+
+	describe "when first_seen is not present" do
+		before { @customer.first_seen = nil }
+		it { should_not be_valid }
+	end
+
+	describe "when last_seen is not present" do
+		before { @customer.last_seen = nil }
+		it { should_not be_valid }
+	end
+
+	describe "invalid email address should be rejected" do
+		before { @customer.email = "matthew.rennie@" }
+		it { should_not be_valid }
+	end
+
+	describe "trait relationship" do
+  	
+  	before { @customer.save }
+    let!(:trait) do
+      FactoryGirl.create(:trait, key: "Name", value: "Matthew Rennie", customer: @customer)
+    end
+
+    it "should destroy traits" do
+      traits = @customer.traits.to_a
+      @customer.destroy
+      expect(traits).not_to be_empty
+      traits.each do |trait|
+        expect(Trait.where(id: trait.id)).to be_empty
+      end
+    end
+
+  end
+
+  describe "action relationship" do
+  	
+  	before { @customer.save }
+    let!(:action) do
+      FactoryGirl.create(:action, customer: @customer)
+    end
+
+    it "should destroy actions" do
+      actions = @customer.actions.to_a
+      @customer.destroy
+      expect(actions).not_to be_empty
+      actions.each do |action|
+        expect(Action.where(id: action.id)).to be_empty
+      end
+    end
+
+  end
+
+end

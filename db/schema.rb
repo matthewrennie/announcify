@@ -11,7 +11,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130902170050) do
+ActiveRecord::Schema.define(version: 20130906151737) do
+
+  create_table "actions", force: true do |t|
+    t.string   "name",        null: false
+    t.datetime "timestamp",   null: false
+    t.integer  "customer_id", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "actions", ["customer_id"], name: "index_actions_on_customer_id"
+
+  create_table "customers", force: true do |t|
+    t.string   "customer_id", null: false
+    t.string   "email"
+    t.datetime "first_seen",  null: false
+    t.datetime "last_seen",   null: false
+    t.integer  "user_id",     null: false
+  end
+
+  add_index "customers", ["customer_id"], name: "index_customers_on_customer_id", unique: true
+  add_index "customers", ["email"], name: "index_customers_on_email", unique: true
+
+  create_table "traits", force: true do |t|
+    t.string   "key",         null: false
+    t.string   "value",       null: false
+    t.integer  "customer_id", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "traits", ["customer_id"], name: "index_traits_on_customer_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
