@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130907181319) do
+ActiveRecord::Schema.define(version: 20130907184054) do
 
   create_table "customer_segments", force: true do |t|
     t.string   "name",        null: false
@@ -53,6 +53,15 @@ ActiveRecord::Schema.define(version: 20130907181319) do
   end
 
   add_index "events", ["customer_id"], name: "index_events_on_customer_id"
+
+  create_table "segment_memberships", force: true do |t|
+    t.integer  "customer_segment_id"
+    t.integer  "customer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "segment_memberships", ["customer_segment_id", "customer_id"], name: "segment_membership_unique", unique: true
 
   create_table "traits", force: true do |t|
     t.string   "key",         null: false

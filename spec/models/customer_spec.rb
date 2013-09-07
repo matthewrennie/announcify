@@ -79,4 +79,24 @@ describe Customer do
 
   end
 
+  describe "membership relationship" do
+  	
+  	before { @customer.save }
+
+  	let!(:customer_segment1) { FactoryGirl.create(:customer_segment, user: @customer.user) }
+  	let!(:customer_segment2) { FactoryGirl.create(:customer_segment, name: "Test Segment 2", user: @customer.user) }  	
+    let!(:segment_membership1) { FactoryGirl.create(:segment_membership, customer_segment: customer_segment1, customer: @customer) }
+    let!(:segment_membership2) { FactoryGirl.create(:segment_membership, customer_segment: customer_segment2, customer: @customer) }
+
+    it "should destroy memberships" do
+      segment_memberships = @customer.segment_memberships.to_a
+      @customer.destroy
+      expect(segment_memberships).not_to be_empty
+      segment_memberships.each do |membership|
+        expect(SegmentMembership.where(id: membership.id)).to be_empty
+      end
+    end
+
+  end
+
 end

@@ -38,4 +38,9 @@ FactoryGirl.define do
 	  event
 	end
 
+	factory :segment_membership do
+		customer_segment
+		customer
+	end
+
 end
