@@ -11,17 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130906151737) do
-
-  create_table "actions", force: true do |t|
-    t.string   "name",        null: false
-    t.datetime "timestamp",   null: false
-    t.integer  "customer_id", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "actions", ["customer_id"], name: "index_actions_on_customer_id"
+ActiveRecord::Schema.define(version: 20130907164728) do
 
   create_table "customers", force: true do |t|
     t.string   "customer_id", null: false
@@ -33,6 +23,26 @@ ActiveRecord::Schema.define(version: 20130906151737) do
 
   add_index "customers", ["customer_id"], name: "index_customers_on_customer_id", unique: true
   add_index "customers", ["email"], name: "index_customers_on_email", unique: true
+
+  create_table "event_properties", force: true do |t|
+    t.string   "key"
+    t.string   "value"
+    t.integer  "event_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "event_properties", ["event_id"], name: "index_event_properties_on_event_id"
+
+  create_table "events", force: true do |t|
+    t.string   "name",        null: false
+    t.datetime "timestamp",   null: false
+    t.integer  "customer_id", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "events", ["customer_id"], name: "index_events_on_customer_id"
 
   create_table "traits", force: true do |t|
     t.string   "key",         null: false

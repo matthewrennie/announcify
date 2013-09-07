@@ -20,10 +20,16 @@ FactoryGirl.define do
 	  customer
 	end
 
-	factory :action do
+	factory :event do
 		name "Identify"
 		timestamp DateTime.now
 	  customer
+	end
+
+	factory :event_property do
+		key "Plan"
+		value "Plan001"		
+	  event
 	end
 
 end

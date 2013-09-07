@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-describe Action do
+describe Event do
 	let(:customer) { FactoryGirl.create(:customer) }
 	before do
-		@action = customer.actions.build(name: "Identify", timestamp: DateTime.now)		
+		@event = customer.events.build(name: "Identify", timestamp: DateTime.now)
 	end
 
-	subject {@action}
+	subject {@event}
 	it { should respond_to(:name) }
 	it { should respond_to(:timestamp) }
 	it { should be_valid }
@@ -15,7 +15,7 @@ describe Action do
 	its(:customer) { should eq customer }
 
 	describe "when customer_id is not present" do
-		before { @action.customer_id = nil }
+		before { @event.customer_id = nil }
 		it { should_not be_valid }
 	end
 end

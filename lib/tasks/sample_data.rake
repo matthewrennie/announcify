@@ -3,7 +3,7 @@ namespace :db do
   desc "Fill database with sample data"
   task :populate => :environment do
 
-    [Customer, User].each(&:delete_all)
+    [EventProperty, Event, Trait, Customer, User].each(&:delete_all)
 
     # Category.populate 20 do |category|
     #   category.name = Populator.words(1..3).titleize
@@ -31,21 +31,71 @@ namespace :db do
                  password: "test123test",
                  password_confirmation: "test123test")
 
-    # create some customers
+    # create some customers from "Identify events"
     100.times do |n|
 
-      first_seen = DateTime.now
-      customer = Customer.create!(customer_id: rand(36**8).to_s(36),
-                   email: Faker::Internet::email,
-                   first_seen: first_seen,
-                   last_seen: first_seen,
-                   user: user)
+      # https://segment.io/docs/integrations/webhooks
+      # Identify Action Received of the form:
+      # 
+      # POST https://your-webhook-url.com/x
+      # {
+      #   "version"   : 1,
+      #   "action"    : "Identify",
+      #   "userId"    : "019mr8mf4r",
+      #   "traits"    : {
+      #     "email"            : "achilles@segment.io",
+      #     "name"             : "Achilles",
+      #     "subscriptionPlan" : "Premium",
+      #     "friendCount"      : 29
+      #   },
+      # "timestamp" : "2012-12-02T00:30:08.276Z"
+      # }
+      customer_id = rand(36**8).to_s(36)
+      name = Faker::Name::name
+      email = Faker::Internet::email
+      subscription_plan = "Premium"
+      customer_id = rand(36**8).to_s(36)
+      friend_count = rand(500)
+      timestamp = DateTime.now
 
-      # Create a trait for each customer
-      Trait.create!(key: "Name", value:Faker::Name::name, customer:customer)
+      customer = Customer.create!(customer_id: customer_id,
+                   email: email,
+                   first_seen: timestamp,
+                   last_seen: timestamp,
+                   user: user)      
+      
 
-      # Create an Identify Action for each customer
-      Action.create!(name: "Identify", timestamp:DateTime.now, customer:customer)
+      # Create an Identify Event for the customer
+      # for simplicity all properties are stored as strings
+      event = Event.create!(name: "Identify", timestamp:timestamp, customer:customer)
+      EventProperty.create!(key: "name", value:name, event: event)
+      EventProperty.create!(key: "email", value:email, event: event)
+      EventProperty.create!(key: "subscriptionPlan", value:subscription_plan, event: event)
+      EventProperty.create!(key: "friendCount", value:friend_count.to_s, event: event)
+
+      # A Trait is the most recent value of a property supplied to an event
+      # other than reserved fields (email and customerId)
+      # does not apply to "PageView" events
+      Trait.create!(key: "name", value:name, customer: customer)      
+      Trait.create!(key: "subscriptionPlan", value:subscription_plan, customer: customer)
+      Trait.create!(key: "friendCount", value:friend_count.to_s, customer: customer)
+
+      # Track Action, PageView Event Received of the form:
+      # POST https://your-webhook-url.com/x
+      # {
+      #   "version"   : 1,
+      #   "action"    : "Track",
+      #   "userId"    : "019mr8mf4r",
+      #   "event"      : "PageView",
+      #   "properties" : {
+      #     "path"        : "/test_path",
+      #   },
+      #   "timestamp" : "2012-12-02T00:30:08.276Z"
+      # }
+      path = "/"+Populator.words(1..3)
+      event = Event.create!(name: "PageView", timestamp:timestamp, customer:customer)
+      EventProperty.create!(key: "path", value:path, event: event)
+
     end
 
 

@@ -61,19 +61,19 @@ describe Customer do
 
   end
 
-  describe "action relationship" do
+  describe "event relationship" do
   	
   	before { @customer.save }
-    let!(:action) do
-      FactoryGirl.create(:action, customer: @customer)
+    let!(:event) do
+      FactoryGirl.create(:event, customer: @customer)
     end
 
-    it "should destroy actions" do
-      actions = @customer.actions.to_a
+    it "should destroy events" do
+      events = @customer.events.to_a
       @customer.destroy
-      expect(actions).not_to be_empty
-      actions.each do |action|
-        expect(Action.where(id: action.id)).to be_empty
+      expect(events).not_to be_empty
+      events.each do |event|
+        expect(Event.where(id: event.id)).to be_empty
       end
     end
 

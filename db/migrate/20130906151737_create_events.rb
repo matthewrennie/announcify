@@ -1,12 +1,12 @@
-class CreateActions < ActiveRecord::Migration
+class CreateEvents < ActiveRecord::Migration
   def change
-    create_table :actions do |t|
+    create_table :events do |t|
       t.string :name, :null => false
       t.datetime :timestamp, :null => false
       t.integer :customer_id, :null => false
 
       t.timestamps
     end
-    add_index :actions, :customer_id
+    add_index :events, :customer_id
   end
 end
