@@ -14,6 +14,12 @@ FactoryGirl.define do
 	  user
 	end
 
+	factory :customer_segment do
+	  name "Test Segment"
+	  description "Test Segment Description"
+	  user
+	end
+
 	factory :trait do
 		key "Name"
 		value "Matthew Rennie"

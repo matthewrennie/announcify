@@ -24,4 +24,22 @@ describe User do
 
   end
 
+  describe "customer_segment relationship" do
+    
+    before { @user.save }
+    let!(:customer_segment) do
+      FactoryGirl.create(:customer_segment, user: @user)
+    end
+
+    it "should destroy customer_segments" do
+      customer_segments = @user.customer_segments.to_a
+      @user.destroy
+      expect(customer_segments).not_to be_empty
+      customer_segments.each do |customer_segment|
+        expect(CustomerSegment.where(id: customer_segment.id)).to be_empty
+      end
+    end
+
+  end
+
 end
