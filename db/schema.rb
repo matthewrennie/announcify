@@ -11,7 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130907184054) do
+ActiveRecord::Schema.define(version: 20130907215758) do
+
+  create_table "announcements", force: true do |t|
+    t.string   "name",           null: false
+    t.string   "description"
+    t.boolean  "is_active",      null: false
+    t.string   "trigger_page"
+    t.string   "trigger_event"
+    t.string   "content",        null: false
+    t.string   "type"
+    t.string   "position"
+    t.string   "color"
+    t.boolean  "is_dismissable", null: false
+    t.datetime "active_until",   null: false
+    t.integer  "user_id",        null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "announcements", ["name", "user_id"], name: "index_announcements_on_name_and_user_id", unique: true
+  add_index "announcements", ["user_id"], name: "index_announcements_on_user_id"
 
   create_table "customer_segments", force: true do |t|
     t.string   "name",        null: false
