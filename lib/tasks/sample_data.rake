@@ -3,7 +3,7 @@ namespace :db do
   desc "Fill database with sample data"
   task :populate => :environment do
 
-    [EventProperty, Event, Trait, Customer, User].each(&:delete_all)
+    [SegmentMembership, EventProperty, Event, Trait, Customer, User].each(&:delete_all)
 
     # Category.populate 20 do |category|
     #   category.name = Populator.words(1..3).titleize
@@ -31,6 +31,21 @@ namespace :db do
                  password: "test123test",
                  password_confirmation: "test123test")
 
+    # Create Segment - All Customers
+    @segment_all_customers = CustomerSegment.create!(name:"All Customers", description:"All customers who have used our application", user: user)
+
+    # Create Segment and Membership - Dashboard
+    @segment_viewed_dashboard = CustomerSegment.create!(name:"Viewed Page Dashboard", description:"All customers who have viewed the dashboard page (/dashboard)", user: user)
+
+    # Create Segment and Membership - Clicked Go
+    @segment_clicked_go = CustomerSegment.create!(name:"Customers that Clicked Go", description:"All customers who clicked on our new 'Go' feature", user: user)
+
+    # Create Segment - Paying Users
+    @segment_paying_customers = CustomerSegment.create!(name:"Paying Customers", description:"All customers who have subscribed to our premium service", user: user)
+
+    # Create Segment - Last Visited within 30 days
+    @segment_last_visited = CustomerSegment.create!(name:"Last Visited within 30 days", description:"All customers who have visited our site within 30 days", user: user)
+
     # create some customers from "Identify events"
     100.times do |n|
 
@@ -57,6 +72,14 @@ namespace :db do
       customer_id = rand(36**8).to_s(36)
       friend_count = rand(500)
       timestamp = DateTime.now
+
+      # Segment "Paying Users" sample data
+      if(name.include?('r') || name.include?('R'))
+        subscription_plan = "Premium"
+      else
+        subscription_plan = "Free"
+      end
+
 
       customer = Customer.create!(customer_id: customer_id,
                    email: email,
@@ -92,9 +115,54 @@ namespace :db do
       #   },
       #   "timestamp" : "2012-12-02T00:30:08.276Z"
       # }
-      path = "/"+Populator.words(1..3)
-      event = Event.create!(name: "PageView", timestamp:timestamp, customer:customer)
-      EventProperty.create!(key: "path", value:path, event: event)
+      viewed_dashboard = false
+      rand(10).times do |n|
+
+        timestamp = DateTime.now
+        path = "/"+Populator.words(1..3).gsub(' ','_')        
+
+        # Segment "Viewed Dashboard" sample data
+        if((customer.email.length % 2) && (n % 2 == 0))
+          path = "/dashboard"
+          viewed_dashboard = true
+        end
+
+        event = Event.create!(name: "PageView", timestamp:timestamp, customer:customer)
+        EventProperty.create!(key: "path", value:path, event: event)
+
+      end      
+
+      # Segment "Clicked Go" sample data
+      if(name.include?('m'))
+        # Track Action, Clicked Go Event Received of the form:
+        # POST https://your-webhook-url.com/x
+        # {
+        #   "version"   : 1,
+        #   "action"    : "Track",
+        #   "userId"    : "019mr8mf4r",
+        #   "event"      : "Clicked Go",
+        #   "timestamp" : "2012-12-02T00:30:08.276Z"
+        # }
+        event = Event.create!(name: "Clicked Go", timestamp:timestamp, customer:customer)
+        # Add Membership for Clicked Go segment
+        SegmentMembership.create!(customer_segment: @segment_clicked_go, customer: customer)
+      end
+
+      # Add Membership for all customers segment
+      SegmentMembership.create!(customer_segment: @segment_all_customers, customer: customer)
+
+      # Add Membership for Viewed Dashboard Segment
+      if(viewed_dashboard)
+        SegmentMembership.create!(customer_segment: @segment_viewed_dashboard, customer: customer)
+      end
+
+      # Add Membership for Paying Users segment
+      if(subscription_plan == "Premium")
+        SegmentMembership.create!(customer_segment: @segment_paying_customers, customer: customer)        
+      end
+
+      # Add Membership for Last Visited 30 days segment
+      SegmentMembership.create!(customer_segment: @segment_last_visited, customer: customer)
 
     end
 
