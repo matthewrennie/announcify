@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 20130907224609) do
     t.string   "position"
     t.string   "color"
     t.boolean  "is_dismissable",    null: false
-    t.datetime "active_until",      null: false
+    t.datetime "active_until"
     t.integer  "user_id",           null: false
     t.datetime "created_at"
     t.datetime "updated_at"
