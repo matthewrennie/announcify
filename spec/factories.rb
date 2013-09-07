@@ -43,4 +43,14 @@ FactoryGirl.define do
 		customer
 	end
 
+	factory :announcement do
+		name "Test Announcement"
+		announcement_type "Modal"
+		is_active true
+		is_dismissable true
+		active_until DateTime.now
+		content "Test Content"
+		user
+	end
+
 end
