@@ -8,14 +8,8 @@
     <%= render 'layouts/shim' %>
   </head>
   <body>
-
-    <div class="container">
-
-      <!-- page content -->
-      <%= content_for?(:second_level_layout) ? yield(:second_level_layout) : yield %>
-
-    </div> <!-- /container -->
-
+    <!-- page content -->
+    <%= content_for?(:second_level_layout) ? yield(:second_level_layout) : yield %>
     <!-- script -->
     <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   </body>

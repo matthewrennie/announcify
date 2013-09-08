@@ -41,7 +41,7 @@ module DeviseHelper
   		html = <<-HTML
 	    <div class="alert alert-warning">
 				<span class="glyphicon glyphicon-warning-sign"></span>
-				#{flash[:alert]}
+				#{flash[:notice]}
 			</div>
 	    HTML
 

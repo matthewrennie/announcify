@@ -1,0 +1,46 @@
+<% content_for :third_level_layout do %>  
+
+	<div class="container">
+
+		<% if @announcement.errors.any? %>
+		  <div id="error_explanation">
+		    <h2><%= pluralize(@announcement.errors.count, "error") %> prohibited this post from being saved:</h2>
+		 
+		    <ul>
+		    <% @announcement.errors.full_messages.each do |msg| %>
+		      <li><%= msg %></li>
+		    <% end %>
+		    </ul>
+		  </div>
+		<% end %>
+
+		<%= form_for(@announcement) do |f| %>
+
+			<!-- Display when -->
+			<h3>This announcement is displayed when:</h3>
+
+			<!-- Display to -->
+			<h3>and is displayed to users who are in the following segments:</h3>
+
+			<!-- And has the content -->
+			<h3>and has the following content:</h3>
+
+			<!-- And has the follwoing properties -->
+			<h3>and has the following properties:</h3>
+
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+
+      <%= f.label :description %>
+      <%= f.text_field :description %>
+
+      <%= f.label :content %>
+      <%= f.text_field :content %>
+
+      <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
+    <% end %>
+		
+	</div>
+
+<% end %>
+<%= render :template => 'layouts/product' %>

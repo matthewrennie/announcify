@@ -1,0 +1,17 @@
+<tr>
+<td><%= announcement.name %></td>
+<td><%= announcement.announcement_type %></td>
+<td><%= announcement.announcement_impressions.count %></td>
+<% if announcement.is_active? %>
+	<td><%= announcement.created_at %></td>
+<% else %>
+	<td><%= announcement.active_until %></td>
+<% end %>
+<% if announcement.is_active? %>
+	<% if announcement.active_until.nil? %>
+		<td>Never</td>
+	<% else %>
+		<td><%= announcement.active_until %></td>
+	<% end %>	
+<% end %>
+</tr>

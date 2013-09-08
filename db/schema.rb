@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130907224609) do
+ActiveRecord::Schema.define(version: 20130908210142) do
+
+  create_table "announcement_clicks", force: true do |t|
+    t.integer  "customer_id",     null: false
+    t.integer  "announcement_id", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "announcement_clicks", ["announcement_id"], name: "index_announcement_clicks_on_announcement_id"
+  add_index "announcement_clicks", ["customer_id"], name: "index_announcement_clicks_on_customer_id"
 
   create_table "announcement_impressions", force: true do |t|
     t.integer  "customer_id",     null: false

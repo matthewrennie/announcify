@@ -1,0 +1,56 @@
+<% content_for :third_level_layout do %>  
+
+	<!-- Statistics -->
+	<div class="container">
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">Stats for all time</h3>
+		  </div>
+		  <div class="panel-body">
+		    <div class="col-lg-2 text-center ">Announcement Impressions</div>
+		    <div class="col-lg-2 text-center statistic"><%= @summary['n_impressions'] %></div>
+				<div class="col-lg-2 text-center">Announcement Clicks</div>
+				<div class="col-lg-2 text-center statistic"><%= @summary['n_clicks'] %></div>
+				<div class="col-lg-1 text-center">Events Processed</div>
+				<div class="col-lg-3 text-center statistic"><%= @summary['n_events'] %></div>				
+		  </div>
+		</div>
+	</div>	
+
+	<!-- Active Announcements -->
+	<div class="container">
+		<h2>Active Announcements <a class="btn btn-primary btn-sm" href="#">Create Announcement &raquo;</a></h2>		
+		<table class="table">
+			<thead>
+				<th>Name</th>
+				<th>Type</th>
+				<th>Impressions</th>
+				<th>Since</th>
+				<th>Expires</th>
+			</thead>
+			<tbody>
+				<%= render partial: "announcement", collection: @active_announcements %>				
+			</tbody>
+		</table>
+	</div>	
+	<br/>
+
+	<!-- Inactive Announcements -->
+	<div class="container">
+		<h2>Inactive Announcements</h2>
+		<table class="table">
+			<thead>
+				<th>Name</th>
+				<th>Type</th>
+				<th>Impressions</th>
+				<th>Expired</th>
+			</thead>
+			<tbody>
+				<%= render partial: "announcement", collection: @inactive_announcements %>				
+			</tbody>
+		</table>
+	</div>	
+
+
+<% end %>
+<%= render :template => 'layouts/product' %>

@@ -52,9 +52,9 @@ namespace :db do
                         position:'center', color:'#FFFFFF', is_dismissable:true, user: user)
 
     # Create Announcement - Pending Downtime 25/9/2013
-    announce_pending_downtime = Announcement.create!(name: "Pending Downtime 25/9/2013", description: "Banner which displays a message informing users of pending downtime",
-                        is_active:true, trigger_page:'*', content:'Downtime is expected 25/9/2013', announcement_type:'banner',
-                        position:'top', color:'#FFFF00', is_dismissable:true, user: user)
+    announce_pending_downtime = Announcement.create!(name: "Pending Downtime 9/25/2013", description: "Banner which displays a message informing users of pending downtime",
+                        is_active:true, trigger_page:'*', content:'Downtime is expected 9/25/2013', announcement_type:'banner',
+                        position:'top', color:'#FFFF00', is_dismissable:false, active_until: DateTime.strptime("09/26/2013 0:0:0", '%m/%d/%Y %H:%M:%S'), user: user)
 
     # Create Announcement - Feature Temporarily Unavailable
     announce_temporary_unavailable = Announcement.create!(name: "Feature Temporarily Unavailable", description: "One of our features is temporarily unavailable, let customer know when they click it",
@@ -63,15 +63,15 @@ namespace :db do
 
     # Create Announcement - New Feature Available for Paying Customers
     announce_new_feature_premium = Announcement.create!(name: "New Feature Available to Premium Subscribers", description: "Modal which displays an announcement of new features to paying users",
-                        is_active:true, trigger_page:'/dashboard', content:'New Feature Available to Premium Subscribers!', announcement_type:'modal',
-                        position:'center', color:'#FFFFFF', is_dismissable:true, user: user)
+                        is_active:false, trigger_page:'/dashboard', content:'New Feature Available to Premium Subscribers!', announcement_type:'modal',
+                        position:'center', color:'#FFFFFF', is_dismissable:true, active_until: DateTime.now - 2.days, user: user)
     AnnouncementSegment.create!(announcement:announce_new_feature_premium, customer_segment:segment_paying_customers)
     AnnouncementSegment.create!(announcement:announce_new_feature_premium, customer_segment:segment_last_visited)
 
     # Create Announcement - New Feature Available to All Users
     announce_new_feature_free = Announcement.create!(name: "New Feature Available", description: "Modal which displays for all users",
-                        is_active:true, trigger_page:'/dashboard', content:'New Feature Available!', announcement_type:'modal',
-                        position:'center', color:'#FFFFFF', is_dismissable:true, user: user)
+                        is_active:false, trigger_page:'/dashboard', content:'New Feature Available!', announcement_type:'modal',
+                        position:'center', color:'#FFFFFF', is_dismissable:true, active_until: DateTime.now - 3.days, user: user)
     AnnouncementSegment.create!(announcement:announce_new_feature_free, customer_segment:segment_last_visited)
 
 
@@ -184,7 +184,7 @@ namespace :db do
 
       # Add Membership for Viewed Dashboard Segment
       if(viewed_dashboard)
-        SegmentMembership.create!(customer_segment: segment_viewed_dashboard, customer: customer)
+        SegmentMembership.create!(customer_segment: segment_viewed_dashboard, customer: customer)        
       end
 
       # Add Membership for Paying Users segment
@@ -200,13 +200,19 @@ namespace :db do
       if(viewed_dashboard)
         AnnouncementImpression.create!(announcement: announce_welcome,customer: customer)
         AnnouncementImpression.create!(announcement: announce_new_feature_premium,customer: customer)
+        if(rand(5) == 3)
+          AnnouncementClick.create!(announcement: announce_welcome,customer: customer)
+        end
+        if(rand(10) % 2 == 0)
+          AnnouncementClick.create!(announcement: announce_new_feature_premium,customer: customer)
+        end
       end
       if(clicked_go)
         AnnouncementImpression.create!(announcement: announce_temporary_unavailable,customer: customer)
       end
       if(subscription_plan == "Premium" && viewed_dashboard)
         AnnouncementImpression.create!(announcement: announce_new_feature_premium,customer: customer)
-      end      
+      end          
 
     end
 

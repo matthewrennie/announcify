@@ -1,43 +1,56 @@
 <% content_for :second_level_layout do %> 
-  
-  <!-- Static product header navbar -->
-  <div class="navbar navbar-default navbar-static-top" role="navigation">
+
+<!-- Static product header navbar -->
+<div class="navbar navbar-default navbar-static-top" role="navigation">
+  <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Project name</a>
+      <a class="navbar-brand" href="/">Announcify</a>
     </div>
-    <div class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Link</a></li>
-        <li><a href="#">Link</a></li>
-        <li><a href="#">Link</a></li>
+    <div class="navbar-collapse collapse">      
+      <ul class="nav navbar-nav navbar-right">
+        <li class="active"><a href="#">Announcements</a></li>
+        <li><a data-toggle="modal" href="#comingSoonModal" href="javascript:void(0);">User Segments</a></li>
+        <li><a data-toggle="modal" href="#comingSoonModal" href="javascript:void(0);">Event Log</a></li>
+        <% if user_signed_in? %>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.email %> <b class="caret"></b></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li class="divider"></li>
-            <li class="dropdown-header">Nav header</li>
-            <li><a href="#">Separated link</a></li>
-            <li><a href="#">One more separated link</a></li>
+            <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
           </ul>
         </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="active"><a href="./">Default</a></li>
-        <li><a href="../navbar-static-top/">Static top</a></li>
-        <li><a href="../navbar-fixed-top/">Fixed top</a></li>
+        <% else %>
+        <li><%= link_to "Sign in", new_user_session_path %></li>
+        <% end %>
       </ul>
     </div><!--/.nav-collapse -->
-  </div>
+  </div>    
+</div>
 
-  <!-- Product Content -->
-  <%= content_for?(:third_level_layout) ? yield(:third_level_layout) : yield %>
+<!-- Product Content -->
+<%= content_for?(:third_level_layout) ? yield(:third_level_layout) : yield %>
+
+<!-- coming soon modal -->
+<div class="modal fade" id="comingSoonModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Coming Soon!</h4>
+      </div>
+      <div class="modal-body">
+        Feature coming soon, watch this space!
+      </div>
+      <div class="modal-footer">        
+        <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <% end %>
 <%= render :template => 'layouts/application' %>
