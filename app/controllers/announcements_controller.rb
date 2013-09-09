@@ -50,6 +50,8 @@ class AnnouncementsController < ApplicationController
     @customer_segments = current_user.customer_segments
     @events = distinct_user_events()
     @positions = [['Top', 1], ['Bottom', 2], ['Left', 3], ['Right', 'right'], ['Top Left', 'top-left'], ['Center', 'center'], ['Top Right', 'top-right'], ['Bottom Left', 'bottom-left'], ['Bottom Right', 'bottom-right']]
+    @types = [['Modal', 'modal'], ['Banner', 'banner'], ['Toast', 'toast']]
+    @option = 2
 
     # specific the selected positions
     @selected_position_idx = 1
@@ -57,14 +59,11 @@ class AnnouncementsController < ApplicationController
     end
   end
 
-  def distinct_user_events
-    p 'one'
-    events = []
+  def distinct_user_events    
+    events = [Event.new(name:'-')]
     current_user.customers.each { |customer|  
       events << customer.events.uniq{|event| event.name}
-    }
-    p 'two'
-    p events.length
+    }    
     events.flatten.uniq{|event| event.name}.sort {|x,y| x.name <=> y.name }  
   end
 

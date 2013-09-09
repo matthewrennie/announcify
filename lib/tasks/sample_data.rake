@@ -6,8 +6,8 @@ namespace :db do
     [AnnouncementSegment, AnnouncementImpression, Announcement, SegmentMembership, EventProperty, Event, Trait, Customer, User].each(&:delete_all)
     
     user = User.create!(email: "testuser@announcify.io",
-                 password: "test123test",
-                 password_confirmation: "test123test")
+                 password: "12345678",
+                 password_confirmation: "12345678")
 
     # Create Segment - All Customers
     segment_all_customers = CustomerSegment.create!(name:"All Customers", description:"All customers who have used our application", user: user)

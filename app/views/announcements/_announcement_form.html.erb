@@ -45,14 +45,14 @@
 	  <div class="row">
 		  <div class="form-group col-lg-12">
 		  	<label for="announcementType" class="control-label">and performs the following event (leave blank for all): </label>
-		  	# <%= f.select :announcement_type, options_from_collection_for_select(@events, 'name', 'name'), class: "form-control", id:"announcementType" %>			    	
+		  	# <%= f.select :announcement_type, options_from_collection_for_select(@events, 'name', 'name', @announcement.trigger_event), class: "form-control", id:"announcementType" %>			    	
 			</div>
 		</div>
 	</div>
 
 	<!-- Display to -->
 	<h3>and is displayed to users who are in the following segments:</h3>
-	<%= select_tag("announcement[customer_segment_ids][]", options_for_select(@customer_segments.collect { |customer_segment| [customer_segment.name, customer_segment.id] }, @announcement.customer_segments.collect { |customer_segment| customer_segment.id}), {:multiple=>true, :size=>5}) %>
+	<%= select_tag("announcement[customer_segment_ids][]", options_for_select(@customer_segments.collect { |customer_segment| [customer_segment.name, customer_segment.id] }, @announcement.customer_segments.collect { |customer_segment| customer_segment.id}), {:multiple=>true, :size=>5, :class=>"form-control"}) %>
 
 	<!-- And has the content -->
 	<h3>and has the following content:</h3>
@@ -65,12 +65,12 @@
 	<div class="row">
 		<div class="form-group col-lg-6">
 	    <label for="announcementType" class="control-label">Type</label>
-	    <%= f.select :announcement_type, options_for_select([['Modal', 'modal'], ['Banner', 'banner'], ['Toast', 'toast']], 1), class: "form-control", id:"announcementType" %>
+	    <%= f.select :announcement_type, options_for_select(@types, @announcement.announcement_type), class: "form-control", id:"announcementType" %>
 	  </div>
 
 	  <div class="form-group col-lg-6">
 	    <label for="position" class="control-label">Position</label>
-	    <%= f.select :position, @positions, selected:3, class: "form-control", id:"position" %>
+	    <%= f.select :position, options_for_select(@positions, @announcement.position ), class: "form-control", id:"position" %>
 	  </div>
   <div>
 
