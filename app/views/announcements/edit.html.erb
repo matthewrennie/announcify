@@ -1,2 +1,8 @@
-<h1>Announcements#edit</h1>
-<p>Find me in app/views/announcements/edit.html.erb</p>
+<% content_for :third_level_layout do %>  
+
+	<div class="container">
+		<%= render partial: "announcement_form"%>						
+	</div>
+
+<% end %>
+<%= render :template => 'layouts/product' %>

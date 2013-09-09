@@ -1,5 +1,5 @@
 <tr>
-<td><%= announcement.name %></td>
+<td><%= link_to announcement.name, edit_announcements_path(announcement) %></td>
 <td><%= announcement.announcement_type %></td>
 <td><%= announcement.announcement_impressions.count %></td>
 <% if announcement.is_active? %>

@@ -1,0 +1,96 @@
+<% if @announcement.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@announcement.errors.count, "error") %> prohibited this post from being saved:</h2>
+ 
+    <ul>
+    <% @announcement.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_for(@announcement) do |f| %>
+
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="form-group">
+				<div class="col-lg-4"><%= f.text_field :name, class: "form-control", placeholder: "Announcement Name", :autofocus => true %></div>
+				<div class="col-lg-1"><div class="checkbox"><label><%= f.check_box :is_active %>Active</label></div></div>
+				<div class="col-lg-2"><a class="btn btn-default btn-sm" data-toggle="modal" href="#comingSoonModal">Preview Announcement &raquo;</a></div>
+				<div class="col-lg-2"><%= f.submit "Save Announcement", class: "btn btn-sm btn-primary" %></div>
+				<div class="col-lg-2"><a class="btn btn-danger btn-sm" href="#">Delete Announcement &raquo;</a></div>				
+			</div>
+		</div>
+	</div>
+
+	<!-- Display when -->
+	<div class="form-group">
+		<h3>This announcement is displayed when:</h3>
+		<br/>
+		<div class="row">
+	  	<div class="form-group col-lg-6">			  					  		
+	  		<label for="triggerPage" class="control-label">A user visits the page:</label>
+	  		<%= f.text_field :trigger_page, class: "form-control", placeholder: "Page Path Regular Expression (leave blank for all)", :autofocus => true %>
+	  	</div>
+	  </div>
+	  <div class="row">
+		  <div class="form-group col-lg-12">
+		  	<label for="announcementType" class="control-label">and performs the following event (leave blank for all): </label>
+		  	# <%= f.select :announcement_type, options_from_collection_for_select(@events, 'name', 'name'), class: "form-control", id:"announcementType" %>			    	
+			</div>
+		</div>
+	</div>
+
+	<!-- Display to -->
+	<h3>and is displayed to users who are in the following segments:</h3>
+	<%= select_tag("announcement[customer_segment_ids][]", options_for_select(@customer_segments.collect { |customer_segment| [customer_segment.name, customer_segment.id] }, @announcement.customer_segments.collect { |customer_segment| customer_segment.id}), {:multiple=>true, :size=>5}) %>
+
+	<!-- And has the content -->
+	<h3>and has the following content:</h3>
+		<%= f.text_area :content, class: "form-control", placeholder: "Announcement Content (HTML or Text)" %>
+	<br/>
+
+	<!-- And has the follwoing properties -->
+	<h3>and has the following properties:</h3>
+
+	<div class="row">
+		<div class="form-group col-lg-6">
+	    <label for="announcementType" class="control-label">Type</label>
+	    <%= f.select :announcement_type, options_for_select([['Modal', 'modal'], ['Banner', 'banner'], ['Toast', 'toast']], 1), class: "form-control", id:"announcementType" %>
+	  </div>
+
+	  <div class="form-group col-lg-6">
+	    <label for="position" class="control-label">Position</label>
+	    <%= f.select :position, options_for_select([['Top', 'top'], ['Bottom', 'bottom'], ['Left', 'left'], ['Right', 'right'], ['Top Left', 'top-left'], ['Center', 'center'], ['Top Right', 'top-right'], ['Bottom Left', 'bottom-left'], ['Bottom Right', 'bottom-right']], 6), class: "form-control", id:"position" %>
+	  </div>
+  <div>
+
+  <div class="row">
+  	<div class="form-group col-lg-6">
+  		<label for="color" class="control-label">Color</label>
+  		<%= f.color_field :color, id:"color" %>
+  	</div>
+	  <div class="form-group col-lg-6">
+	  	<div><div class="checkbox"><label><%= f.check_box :is_dismissable %>Dismissable</label></div></div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="form-group col-lg-12">
+			<label for="dismissable" class="control-label">Active Until</label>
+			<%= f.datetime_select :active_until, :ampm => true, default: 1.days.from_now, id:"dismissable" %>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-lg-5"></div>
+		<div class="col-lg-2"><a class="btn btn-default btn-sm" data-toggle="modal" href="#comingSoonModal">Preview Announcement &raquo;</a></div>
+		<div class="col-lg-5"><%= f.submit "Save Announcement", class: "btn btn-sm btn-primary" %></div>				
+	</div> 
+
+	<br/>
+	<br/>
+	<br/>     
+
+<% end %>

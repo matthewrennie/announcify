@@ -4,9 +4,23 @@ class AnnouncementsController < ApplicationController
 
   def new
   	@announcement = Announcement.new
+    @announcement.is_active = true
+    @customer_segments = current_user.customer_segments
+    @events = []
+    current_user.customers.each { |customer|  
+      @events << customer.events.uniq{|event| event.name}
+    }
+    @events = @events.flatten.uniq{|event| event.name}.sort {|x,y| x.name <=> y.name }     
   end
 
   def edit
+    @announcement = Announcement.find(params[:format].to_i)   
+    @customer_segments = current_user.customer_segments
+    @events = []
+    current_user.customers.each { |customer|  
+      @events << customer.events.uniq{|event| event.name}
+    }
+    @events = @events.flatten.uniq{|event| event.name}.sort {|x,y| x.name <=> y.name }  
   end
 
   def create
@@ -16,7 +30,7 @@ class AnnouncementsController < ApplicationController
 
   	# attempt to save the announcement
   	if @announcement.save
-      redirect_to @announcement
+      redirect_to root
     else
       render "new"
     end
