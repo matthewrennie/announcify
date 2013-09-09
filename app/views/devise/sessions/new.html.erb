@@ -6,7 +6,11 @@
 	<h2>Sign in</h2>
 
 	  <%= devise_error_messages! %>
-    <%= devise_flash_messages! %>	
+    <%= devise_flash_messages! %>
+
+    <div class="alert alert-success">
+      for evaluation purposes sign in with <br/>username: testuser@announcify.io password: test123test
+    </div>
 
   	<div>
   		<%= f.email_field :email, class: "form-control", placeholder: "Email Address", :autofocus => true %>
