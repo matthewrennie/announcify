@@ -14,7 +14,7 @@ class AnnouncementsController < ApplicationController
   end
 
   def edit
-    @announcement = Announcement.find(params[:format].to_i)   
+    @announcement = Announcement.find(params[:id])   
     @customer_segments = current_user.customer_segments
     @events = []
     current_user.customers.each { |customer|  

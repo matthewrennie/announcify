@@ -1,6 +1,5 @@
-Announcify::Application.routes.draw do  
-  get "announcements/new"
-  get "announcements/edit"
+Announcify::Application.routes.draw do
+  resources :announcements  
   devise_for :users
   get "dashboard/show"  
   get "static_pages/home"
@@ -10,7 +9,5 @@ Announcify::Application.routes.draw do
     root :to => "dashboard#show", :as => "authenticated_root"
   end
   root :to => 'static_pages#home'
-
-  resource :announcements, :path => 'announcements'
 
 end
