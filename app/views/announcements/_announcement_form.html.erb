@@ -1,12 +1,16 @@
+
 <% if @announcement.errors.any? %>
   <div id="error_explanation">
-    <h2><%= pluralize(@announcement.errors.count, "error") %> prohibited this post from being saved:</h2>
- 
-    <ul>
-    <% @announcement.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
+
+  	<div class="alert alert-danger">     	
+      <h4><span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<%= pluralize(@announcement.errors.count, "error") %> prevented this announcement from being saved</h4>
+      <ul>
+    		<% @announcement.errors.full_messages.each do |msg| %>
+      		<li><%= msg %></li>
+    		<% end %>
+    	</ul>
+    </div>    
+     
   </div>
 <% end %>
 
@@ -19,7 +23,11 @@
 				<div class="col-lg-1"><div class="checkbox"><label><%= f.check_box :is_active %>Active</label></div></div>
 				<div class="col-lg-2"><a class="btn btn-default btn-sm" data-toggle="modal" href="#comingSoonModal">Preview Announcement &raquo;</a></div>
 				<div class="col-lg-2"><%= f.submit "Save Announcement", class: "btn btn-sm btn-primary" %></div>
-				<div class="col-lg-2"><a class="btn btn-danger btn-sm" href="#">Delete Announcement &raquo;</a></div>				
+				<div class="col-lg-2">
+					<% if @new.nil? %>
+						<%= link_to 'Delete Announcement', @announcement, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+					<% end %>					
+				</div>				
 			</div>
 		</div>
 	</div>
@@ -62,7 +70,7 @@
 
 	  <div class="form-group col-lg-6">
 	    <label for="position" class="control-label">Position</label>
-	    <%= f.select :position, options_for_select([['Top', 'top'], ['Bottom', 'bottom'], ['Left', 'left'], ['Right', 'right'], ['Top Left', 'top-left'], ['Center', 'center'], ['Top Right', 'top-right'], ['Bottom Left', 'bottom-left'], ['Bottom Right', 'bottom-right']], 6), class: "form-control", id:"position" %>
+	    <%= f.select :position, @positions, selected:3, class: "form-control", id:"position" %>
 	  </div>
   <div>
 
