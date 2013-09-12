@@ -97,7 +97,7 @@ namespace :db do
 
       # Create an Identify Event for the customer
       # for simplicity all properties are stored as strings
-      event = Event.create!(name: "Identify", timestamp:timestamp, customer:customer)
+      event = Event.create!(name: "Identify", timestamp:timestamp, customer:customer, user:user)
       EventProperty.create!(key: "name", value:name, event: event)
       EventProperty.create!(key: "email", value:email, event: event)
       EventProperty.create!(key: "subscriptionPlan", value:subscription_plan, event: event)
@@ -134,7 +134,7 @@ namespace :db do
           viewed_dashboard = true
         end
 
-        event = Event.create!(name: "PageView", timestamp:timestamp, customer:customer)
+        event = Event.create!(name: "PageView", timestamp:timestamp, customer:customer, user:user)
         EventProperty.create!(key: "path", value:path, event: event)
 
       end      
@@ -151,7 +151,7 @@ namespace :db do
         #   "event"      : "Clicked Go",
         #   "timestamp" : "2012-12-02T00:30:08.276Z"
         # }
-        event = Event.create!(name: "Clicked Go", timestamp:timestamp, customer:customer)
+        event = Event.create!(name: "Clicked Go", timestamp:timestamp, customer:customer, user:user)
         clicked_go = true
         # Add Membership for Clicked Go segment
         SegmentMembership.create!(customer_segment: segment_clicked_go, customer: customer)        

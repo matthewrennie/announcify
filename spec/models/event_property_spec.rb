@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 describe EventProperty do
-	let(:event) { FactoryGirl.create(:event) }
+	let(:user) { FactoryGirl.create(:user) }
+	let(:customer) { FactoryGirl.create(:customer, user:user) }
+	let(:event) { FactoryGirl.create(:event, customer:customer, user:user) }
 	before do		
 		# @event_property = event.event_properties.build(key: "Plan", value:"Plan001")
 		@event_property = EventProperty.new(key: "Plan", value:"Plan001", event:event)

@@ -97,11 +97,13 @@ ActiveRecord::Schema.define(version: 20130908210142) do
     t.string   "name",        null: false
     t.datetime "timestamp",   null: false
     t.integer  "customer_id", null: false
+    t.integer  "user_id",     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "events", ["customer_id"], name: "index_events_on_customer_id"
+  add_index "events", ["user_id", "timestamp"], name: "index_events_on_user_id_and_timestamp"
 
   create_table "segment_memberships", force: true do |t|
     t.integer  "customer_segment_id", null: false

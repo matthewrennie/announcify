@@ -21,10 +21,7 @@ class DashboardController < ApplicationController
     }
 
     # count the number of events processed
-    n_events = 0
-    current_user.customers.each { |customer|  
-      n_events += customer.events.count
-    }
+    n_events = current_user.events.count
   	
   	@summary = {}
   	@summary['n_impressions'] = n_impressions

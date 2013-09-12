@@ -65,7 +65,7 @@ describe Customer do
   	
   	before { @customer.save }
     let!(:event) do
-      FactoryGirl.create(:event, customer: @customer)
+      FactoryGirl.create(:event, customer: @customer, user:@customer.user)
     end
 
     it "should destroy events" do

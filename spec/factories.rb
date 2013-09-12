@@ -30,6 +30,7 @@ FactoryGirl.define do
 		name "Identify"
 		timestamp DateTime.now
 	  customer
+	  user
 	end
 
 	factory :event_property do
