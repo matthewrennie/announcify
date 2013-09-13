@@ -30,6 +30,7 @@ gem 'devise'
 gem 'validates_email_format_of'
 gem 'faker'
 gem 'populator'
+gem 'will_paginate', '3.0.4'
 
 group :doc do
   gem 'sdoc', '0.3.20', require: false

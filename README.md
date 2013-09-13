@@ -17,4 +17,9 @@ Description of Features
 6. Repeating process on server to generate sample data every few seconds to simulate activity
 7. Javascript to "preview" the announcement service
 8. Implemented using Bootstrap 3
+9. Seperation of "marketing" and "product" templates
+10. will_paginate gem
+11. Functional event log with distance_between_time_in_words
+
+
 

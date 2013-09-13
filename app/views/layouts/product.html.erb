@@ -13,9 +13,9 @@
     </div>
     <div class="navbar-collapse collapse">      
       <ul class="nav navbar-nav navbar-right">
-        <li class="active"><a href="/">Announcements</a></li>
-        <li><a data-toggle="modal" href="#comingSoonModal">User Segments</a></li>
-        <li><a data-toggle="modal" href="#comingSoonModal">Event Log</a></li>
+        <li><a href="/">Announcements</a></li>
+        <li><a href="/event/index">Event Log</a></li>
+        <li><a data-toggle="modal" href="#comingSoonModal">User Segments</a></li>        
         <% if user_signed_in? %>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.email %> <b class="caret"></b></a>

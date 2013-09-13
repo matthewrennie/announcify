@@ -1,0 +1,37 @@
+<tr class="event_name">
+	<td>
+		<%= event.customer.traits.select {|trait| trait.key == "name"}.first.value %>
+	</td>
+	<td>
+		<% if event.name == 'PageView' %>
+			<em>
+				<span class="glyphicon glyphicon-list-alt"></span>
+				<%= event.event_properties.select {|property| property.key == "path"}.first.value %>
+			</em>
+		<% elsif event.name == "Identify" %>
+			<span class="glyphicon glyphicon-flag"></span>
+			<strong><%= event.name %></strong>
+		<% else %>			
+			<span class="glyphicon glyphicon-flash"></span>
+			<strong><%= event.name %></strong>
+		<% end %>		
+	</td>
+	<td>
+		<%= distance_of_time_in_words_to_now(event.timestamp) %> ago
+	</td>
+</tr>
+
+<% if event.name != 'PageView' && event.event_properties.any? %>
+	<tr class="event_props">	
+		<td colSpan=3>
+			<div class="well">
+					<% event.event_properties.each do |property| %>			
+						<div class="row">
+								<div class="col-lg-2"><%= property.key %>:</div>
+								<div class="col-lg-2"><%= property.value %></div>
+						</div>
+					<% end %>							
+			</div>		
+		</td>
+	</tr>
+<% end %>
