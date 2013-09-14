@@ -9,14 +9,18 @@ require 'rufus/scheduler'
   
 # end
 
-Warden::Manager.after_authentication do |user,auth,opts|
+Warden::Manager.after_authentication do |user,auth,opts|	
+	
 	# simulate user behavior for 3 customers
-	3.times do |n|
-		scheduler = Rufus::Scheduler.start_new
-		scheduler.in((n*20).to_s+"s") do
-			simulateCustomerBehavior(user)
-		end 
-	end	
+	if(Rails.env.production?)
+		3.times do |n|
+			scheduler = Rufus::Scheduler.start_new
+			scheduler.in((n*20).to_s+"s") do
+				simulateCustomerBehavior(user)
+			end 
+		end	
+	end
+
 end
 
 def simulateCustomerBehavior(user)

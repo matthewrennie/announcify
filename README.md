@@ -6,7 +6,7 @@ This application was started by following
 the [*Ruby on Rails Tutorial*](http://railstutorial.org/)
 by [Michael Hartl](http://michaelhartl.com/).
 
-Project created for CMUSV FSE 96-700 B
+Project created for individual deliverable (Task 2 and 3) CMUSV FSE 96-700 B
 
 Description of Features
 1. Devise for authentication
@@ -22,6 +22,8 @@ Description of Features
 11. Functional event log with distance_between_time_in_words
 12. RESTFul query: /announcements/summary.xml
 13. navigation bar active helper
+14. user simulated behavior using the Warden after_authentication event and rufus scheduler (production only)
+15. Capybara integration tests
 
 
 

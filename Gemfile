@@ -13,12 +13,9 @@ gem 'underscore-rails'
 group :development, :test do
   gem 'sqlite3', '1.3.7'
   gem 'rspec-rails', '2.13.1'
-end
-
-group :test do
   gem 'zip'
   gem 'selenium-webdriver', '2.0.0'
-  gem 'capybara', '2.1.0'
+  gem 'capybara'
   gem 'factory_girl_rails', '4.2.1'
 end
 

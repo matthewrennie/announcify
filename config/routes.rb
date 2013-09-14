@@ -5,7 +5,7 @@ Announcify::Application.routes.draw do
   get "static_pages/home"
   get "static_pages/help"
   get "static_pages/about"
-  get "event/index"
+  get "event/index", as: 'event'
   get "dashboard/show"  
   authenticated :user do
     root :to => "dashboard#show", :as => "authenticated_root"

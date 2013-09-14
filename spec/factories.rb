@@ -21,7 +21,7 @@ FactoryGirl.define do
 	end
 
 	factory :trait do
-		key "Name"
+		key "name"
 		value "Matthew Rennie"
 	  customer
 	end

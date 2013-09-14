@@ -13,8 +13,8 @@
     </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
-        <li class="<%= is_page_active('announcement',yield(:active_page)) %>"><a href="/">Announcements</a></li>
-        <li class="<%= is_page_active('eventlog',yield(:active_page)) %>"><a href="/event/index">Event Log</a></li>
+        <li class="<%= is_page_active('announcement',yield(:active_page)) %>"><%= link_to "Announcements", root_path %></li>
+        <li class="<%= is_page_active('eventlog',yield(:active_page)) %>"><%= link_to "Event Log", event_path %></li>
         <li><a data-toggle="modal" href="#comingSoonModal">User Segments</a></li>
         <% if user_signed_in? %>
         <li class="dropdown">
