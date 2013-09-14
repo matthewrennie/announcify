@@ -1,18 +1,20 @@
+<% provide(:title, 'Dashboard') %>
+<% provide(:active_page, 'announcement') %>
 <% content_for :third_level_layout do %>  
 
 	<!-- Statistics -->
-	<div class="container">
+	<div id="announcement_statistics" class="container">
 		<div class="panel panel-default">
 		  <div class="panel-heading">
 		    <h3 class="panel-title">Stats for all time</h3>
 		  </div>
 		  <div class="panel-body">
 		    <div class="col-lg-2 text-center ">Announcement Impressions</div>
-		    <div class="col-lg-2 text-center statistic"><%= @summary['n_impressions'] %></div>
+		    <div id="n_impressions" class="col-lg-2 text-center statistic"><%= @summary['n_impressions'] %></div>
 				<div class="col-lg-2 text-center">Announcement Clicks</div>
-				<div class="col-lg-2 text-center statistic"><%= @summary['n_clicks'] %></div>
+				<div id="n_clicks" class="col-lg-2 text-center statistic"><%= @summary['n_clicks'] %></div>
 				<div class="col-lg-1 text-center">Events Processed</div>
-				<div class="col-lg-3 text-center statistic"><%= @summary['n_events'] %></div>				
+				<div id="n_events" class="col-lg-3 text-center statistic"><%= @summary['n_events'] %></div>				
 		  </div>
 		</div>
 	</div>	
@@ -29,7 +31,7 @@
 				<th>Expires</th>
 			</thead>
 			<tbody>
-				<%= render partial: "announcement", collection: @active_announcements %>				
+				<%= render partial: "announcement", collection: @summary['active_announcements'] %>				
 			</tbody>
 		</table>
 	</div>	
@@ -46,7 +48,7 @@
 				<th>Expired</th>
 			</thead>
 			<tbody>
-				<%= render partial: "announcement", collection: @inactive_announcements %>				
+				<%= render partial: "announcement", collection: @summary['inactive_announcements'] %>
 			</tbody>
 		</table>
 	</div>	

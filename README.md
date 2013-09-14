@@ -20,6 +20,8 @@ Description of Features
 9. Seperation of "marketing" and "product" templates
 10. will_paginate gem
 11. Functional event log with distance_between_time_in_words
+12. RESTFul query: /announcements/summary.xml
+13. navigation bar active helper
 
 
 

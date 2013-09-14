@@ -1,4 +1,5 @@
 Announcify::Application.routes.draw do    
+  get '/announcements/summary', to: 'dashboard#show'
   resources :announcements  
   devise_for :users
   get "static_pages/home"

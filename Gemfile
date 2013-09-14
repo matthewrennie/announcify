@@ -7,6 +7,8 @@ ruby '2.0.0'
 
 gem 'rails', '4.0.0'
 gem 'bootstrap-sass-rails'
+gem 'json2-rails'
+gem 'underscore-rails'
 
 group :development, :test do
   gem 'sqlite3', '1.3.7'
@@ -31,6 +33,7 @@ gem 'validates_email_format_of'
 gem 'faker'
 gem 'populator'
 gem 'will_paginate', '3.0.4'
+gem 'rufus-scheduler'
 
 group :doc do
   gem 'sdoc', '0.3.20', require: false

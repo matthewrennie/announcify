@@ -14,4 +14,12 @@ module ApplicationHelper
       "#{base_title} | #{page_title}"
     end
   end
+
+  def is_page_active(expected_page, active_page)
+    if(expected_page == active_page)
+      return "active"
+    else
+      return ""
+    end    
+  end
 end
