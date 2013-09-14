@@ -10,8 +10,8 @@ require 'rufus/scheduler'
 # end
 
 Warden::Manager.after_authentication do |user,auth,opts|
-	# simulate user behavior for at least 10 customers
-	(10 + rand(20)).times do |n|
+	# simulate user behavior for 3 customers
+	3.times do |n|
 		scheduler = Rufus::Scheduler.start_new
 		scheduler.in((n*20).to_s+"s") do
 			simulateCustomerBehavior(user)
