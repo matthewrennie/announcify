@@ -9,21 +9,20 @@ by [Michael Hartl](http://michaelhartl.com/).
 Project created for individual deliverable (Task 2 and 3) CMUSV FSE 96-700 B
 
 Description of Features
-1. Devise for authentication
-2. Multiple models and associations including "through"
-3. Database created using successive migration scripts
-4. Sample data generator
-5. Ajax call using periodically_call_remote to upate statistics
-6. Repeating process on server to generate sample data every few seconds to simulate activity
-7. Javascript to "preview" the announcement service
-8. Implemented using Bootstrap 3
-9. Seperation of "marketing" and "product" templates
-10. will_paginate gem
-11. Functional event log with distance_between_time_in_words
-12. RESTFul query: /announcements/summary.xml
-13. navigation bar active helper
-14. user simulated behavior using the Warden after_authentication event and rufus scheduler (production only)
-15. Capybara integration tests
+- [x] 1. Devise for authentication
+- [x] 2. Multiple models and associations including "through"
+- [x] 3. Database created using successive migration scripts
+- [x] 4. Sample data generator
+- [x] 5. Capybara integration tests
+- [x] 6. Implemented using Bootstrap 3
+- [x] 7. Ajax call using periodically_call_remote to upate statistics
+- [x] 8. Javascript to "preview" the announcement service
+- [x] 9. Seperation of "marketing" and "product" templates
+- [x] 10. will_paginate for pagination in the event log
+- [x] 11. Functional event log with distance_between_time_in_words
+- [x] 12. RESTFul query: /announcements/summary.xml
+- [x] 13. navigation bar active helper
+- [x] 14. user simulated behavior using the Warden after_authentication event and rufus scheduler (production only)
 
 
 
