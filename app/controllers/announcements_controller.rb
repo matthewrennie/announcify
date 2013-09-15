@@ -9,12 +9,13 @@ class AnnouncementsController < ApplicationController
     @new = true
   end
 
-  def create
+  def create    
 
-    @announcement = Announcement.new(announcement_params)
+    @announcement = Announcement.new(announcement_params)    
     @announcement.user = current_user
+    @announcement.announcement_segments.each {|segment| p segment}
 
-    # attempt to save the announcement
+    # attempt to save the announcement    
     if @announcement.save
       redirect_to root_path
     else
@@ -25,13 +26,13 @@ class AnnouncementsController < ApplicationController
   end
 
   def edit
-    @announcement = Announcement.find(params[:id])   
+    @announcement = Announcement.find(params[:id])
     define_view_requirements()
   end
 
   def update
     # update the announcement
-    @announcement = current_user.announcements.find(params[:id])
+    @announcement = current_user.announcements.find(params[:id])    
     if @announcement.update(announcement_params)
       redirect_to root_path
     else      
@@ -68,6 +69,6 @@ class AnnouncementsController < ApplicationController
   end
 
   def announcement_params
-    params.require(:announcement).permit(:name, :description, :is_active, :trigger_page, :trigger_event, :content, :announcement_type, :position, :color, :is_dismissable, :active_until)
+    params.require(:announcement).permit(:name, :description, :is_active, :trigger_page, :trigger_event, :content, :announcement_type, :position, :color, :is_dismissable, :active_until, :customer_segment_ids=> [])
   end
 end
