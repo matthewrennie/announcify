@@ -45,12 +45,12 @@
 	  <div class="row">
 		  <div class="form-group col-lg-12">
 		  	<label for="triggerEvent" class="control-label">and performs the following event (leave blank for all): </label>
-		  	# <%= f.select :trigger_event, options_from_collection_for_select(@events, 'name', 'name', @announcement.trigger_event), class: "form-control", id:"triggerEvent" %>			    	
+		  	<%= f.select :trigger_event, options_from_collection_for_select(@events, 'name', 'name', @announcement.trigger_event), class: "form-control", id:"triggerEvent" %>			    	
 			</div>
 		</div>
 	</div>
 
-	<!-- Display to edit only-->
+	<!-- Display to edit -->
 	<h3>and is displayed to users who are in the following segments:</h3>
 
 	<% if @new.nil? %>
