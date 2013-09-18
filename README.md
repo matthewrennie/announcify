@@ -16,13 +16,12 @@ Description of Features
 - [x] 5. Capybara integration tests
 - [x] 6. Implemented using Bootstrap 3
 - [x] 7. Ajax call using periodically_call_remote to upate statistics
-- [x] 8. Javascript to "preview" the announcement service
-- [x] 9. Seperation of "marketing" and "product" templates
-- [x] 10. will_paginate for pagination in the event log
-- [x] 11. Functional event log with distance_between_time_in_words
-- [x] 12. RESTFul query: /announcements/summary.xml
-- [x] 13. navigation bar active helper
-- [x] 14. user simulated behavior using the Warden after_authentication event and rufus scheduler (production only)
+- [x] 8. Seperation of "marketing" and "product" templates
+- [x] 9. will_paginate for pagination in the event log
+- [x] 10. Functional event log with distance_between_time_in_words
+- [x] 11. RESTFul query: /announcements/summary.xml
+- [x] 12. navigation bar active helper
+- [x] 13. user simulated behavior using the Warden after_authentication event and rufus scheduler (production only)
 
 
 
